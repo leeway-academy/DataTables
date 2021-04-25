@@ -13,12 +13,10 @@ $st = $conn
 if ($st) {
     $products = [];
 
-    foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        $products[] = array_values($row);
-    }
+    $rs = $st->fetchAll(PDO::FETCH_FUNC, fn($id, $name, $price) => [$id, $name, $price] );
 
     echo json_encode([
-        'data' => $products,
+        'data' => $rs,
     ]);
 } else {
     var_dump($conn->errorInfo());
