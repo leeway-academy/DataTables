@@ -11,8 +11,6 @@ $st = $conn
     ->query($sql);
 
 if ($st) {
-    $products = [];
-
     $rs = $st->fetchAll(PDO::FETCH_FUNC, fn($id, $name, $price) => [$id, $name, $price] );
 
     echo json_encode([
