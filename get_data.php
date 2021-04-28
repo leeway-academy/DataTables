@@ -25,6 +25,12 @@ foreach ($columns as $k => $column) {
 }
 
 $where = substr($where, 0, -5);
+
+$globalSearch = $_GET['search'];
+if ( $globalSearchValue = $globalSearch['value'] ) {
+	$where .= ($where ? $where.' AND ' : '' )."name LIKE '%$globalSearchValue%'";
+}
+
 $length = $_GET['length'];
 $start = $_GET['start'];
 
@@ -34,7 +40,8 @@ $countSt = $conn
 
 $total = $countSt->fetch()['Total'];
 
-$sql = "SELECT * FROM products ".($where ?? "WHERE $where ")."$orderBy LIMIT $length OFFSET $start";
+$sql = "SELECT * FROM products ".($where ? "WHERE $where " : '')."$orderBy LIMIT $length OFFSET $start";
+error_log($sql);
 $st = $conn
     ->query($sql);
 
