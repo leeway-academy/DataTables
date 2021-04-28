@@ -30,7 +30,8 @@
 <script type="application/javascript">
     $(document).ready( function () {
         $('#theTable').DataTable({
-            ajax: '/get_data.php',
+            'serverSide': true,
+            'ajax': '/get_data.php',
         });
     } );
 </script>
